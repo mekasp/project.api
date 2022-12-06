@@ -1,0 +1,126 @@
+#users
+# Add users (create & add an email with verification token (plain text) to queue)
+POST http://project.api/api/users
+Accept: application/json
+Content-Type: application/json
+
+{
+    "name": "user1",
+    "email": "user1@gmail",
+    "country_id": "20"
+}
+###
+# Create Token
+POST http://project.api/api/token/create
+Accept: application/json
+Content-Type: application/json
+
+{
+    "email": "uherman@example.com",
+    "token": "RYJC2KPLn5HzGuzooNG8zMZjTDuZIAPI",
+    "device_name": "android"
+}
+###
+# Verify user
+
+GET http://project.api/api/users/11/verify?token=
+Accept: application/json
+Authorization: Bearer
+###
+# List users (filter by name OR/AND email OR/AND verified OR/AND country)
+
+GET http://project.api/api/users?filter[name]=&filter[email]=&filter[verified]=&filter[country]=
+Accept: application/json
+Authorization: Bearer
+###
+# Edit users
+
+PUT http://project.api/api/users
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer
+
+{
+    "name": "usser1",
+    "email": "usesr1@gmail",
+    "country_id": "1"
+}
+###
+#Delete users
+
+DELETE http://project.api/api/users/
+Accept: application/json
+Authorization: Bearer
+###
+
+#projects
+# Add projects
+
+POST http://project.api/api/projects
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer
+
+{
+    "name": "project1"
+}
+###
+# Link projects to users
+
+POST http://project.api/api/projects/101
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer
+
+[
+    4, 2, 3
+]
+###
+# List projects incl. labels (filter by user.email OR/AND user.continent OR/AND labels)
+
+GET http://project.api/api/projects?filter[user][email]=&filter[user][continent]=&filter[labels]=
+Accept: application/json
+Authorization: Bearer
+###
+#Delete projects
+
+DELETE http://project.api/api/projects/5
+Accept: application/json
+Authorization: Bearer
+###
+
+#labels
+# Add labels
+
+POST http://project.api/api/labels
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer
+
+{
+    "name": "label1"
+}
+###
+# Link labels to projects
+
+POST http://project.api/api/labels/201
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer
+
+[
+    99, 100, 101
+]
+###
+# List labels (filter by user.email OR/AND projects)
+
+GET http://project.api/api/labels?filter[user][email]=uherman@example.com&filter[projects]=
+Accept: application/json
+Authorization: Bearer
+###
+#Delete labels
+
+DELETE http://project.api/api/labels/201
+Accept: application/json
+Authorization: Bearer
+
